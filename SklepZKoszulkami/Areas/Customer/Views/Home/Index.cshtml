@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Product>
+
+<div class="row pb-3">
+    @foreach (var product in Model)
+    {
+        <div class="col-lg-4 col-sm-6">
+            <div class="row p-2">
+                <div class="col-12 p-1">
+                    <div class="card border-0 p-3 shadow border-top border-5 rounded">
+                        <div class="card-body pb-0">
+                            <div class="pl-1">
+                                 <img src="@product.ImageUrl" class="card-img-top hvr-grow mx-auto" style="height: 300px; width: 325px;" />
+                            </div>
+                        </div>
+
+                        <div class="card-body pb-0">
+                            <div class="pl-1">
+                                <p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@product.Name</p>
+                                <p class="card-title text-warning text-center">z sezonu <b>@product.Season</b></p>
+                            </div>
+                            <div class="pl-1">
+                                <p class="text-dark text-opacity-75 text-center mb-0">
+                                    Marka: @product.Brand
+                                </p>
+                            </div>
+                            <div class="pl-1">
+                                <p class="text-dark text-opacity-75 text-center mb-0">
+                                    Dostępne rozmiary: @product.Size
+                                </p>
+                            </div>
+                            <div class="pl-1">
+                                <p class="text-dark text-opacity-75 text-center">
+                                    Cena regularna:
+                                    <span>
+                                        @product.Price.ToString("c")
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center">
+                            <a asp-controller="Cart" asp-action="Index" asp-route-productId="@product.Id" class="btn btn-outline-dark mt-auto">
+                                Dodaj do koszyka
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
