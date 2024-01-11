@@ -1,0 +1,32 @@
+﻿namespace SklepZKoszulkami.wwwroot.lib.bootstrap.dist.css {
+    /* przyblizenie po najechaniu */
+.hvr-grow {
+    display: inline-block;
+    vertical-align: middle;
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    transition-duration: 0.3s;
+    transition-property: transform;
+}
+
+.hvr-grow:hover,
+.hvr-grow:focus,
+.hvr-grow:active {
+    transform: scale(1.1);
+}
+
+/* Dodatkowy efekt hover świecenia */
+.hvr-glow {
+    display: inline-block;
+    vertical-align: middle;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    transition: box-shadow 0.3s;
+}
+
+    .hvr-glow:hover,
+    .hvr-glow:focus,
+    .hvr-glow:active {
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    }
+
+    
