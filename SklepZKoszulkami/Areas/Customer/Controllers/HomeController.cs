@@ -20,6 +20,7 @@ namespace SklepZKoszulkami.Areas.Customer.Controllers
         public IActionResult Index()
         {
             IEnumerable<Product> productList = _unitOfWork.ProductRepository.GetAll();
+            Utility.Sizes sizes = new Utility.Sizes();
             return View(productList);
         }
 

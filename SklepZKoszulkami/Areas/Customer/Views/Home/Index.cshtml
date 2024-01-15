@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Product>
+﻿@model IEnumerable<SklepZKoszulkami.Models.Product>
+@using SklepZKoszulkami.Roles
+@using SklepZKoszulkami.Utility
 
 <div class="row pb-3">
     @foreach (var product in Model)
@@ -9,7 +11,7 @@
                     <div class="card border-0 p-3 shadow border-top border-5 rounded">
                         <div class="card-body pb-0">
                             <div class="pl-1">
-                                 <img src="@product.ImageUrl" class="card-img-top hvr-grow mx-auto" style="height: 300px; width: 325px;" />
+                                <img src="@product.ImageUrl" class="card-img-top hvr-grow mx-auto" style="height: 300px; width: 325px;" />
                             </div>
                         </div>
 
@@ -24,9 +26,13 @@
                                 </p>
                             </div>
                             <div class="pl-1">
-                                <p class="text-dark text-opacity-75 text-center mb-0">
-                                    Dostępne rozmiary: @product.Size
-                                </p>
+                                <label for="sizeSelect_@product.Id" class="text-dark text-opacity-75 text-center mb-0">Dostępne rozmiary:</label>
+                                <select id="sizeSelect_@product.Id" name="sizeSelect" class="form-select">
+                                    @foreach (var size in product.Size.Split(','))
+                                    {
+                                        <option value="@size">@size</option>
+                                    }
+                                </select>
                             </div>
                             <div class="pl-1">
                                 <p class="text-dark text-opacity-75 text-center">
@@ -37,7 +43,7 @@
                                 </p>
                             </div>
                         </div>
-                        
+
                         <div class="text-center">
                             <a asp-controller="Cart" asp-action="Index" asp-route-productId="@product.Id" class="btn btn-outline-dark mt-auto">
                                 Dodaj do koszyka
