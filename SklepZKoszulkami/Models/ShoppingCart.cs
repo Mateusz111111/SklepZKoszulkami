@@ -16,5 +16,13 @@ namespace SklepZKoszulkami.Models
         public int Count { get; set; }
         [NotMapped]
         public double Price { get; set; }
+
+        public string AppUserId { get; set; }
+        [ForeignKey("AppUserId")]
+        [ValidateNever]
+        public AppUser AppUser { get; set; }
+
+
+
     }
 }

@@ -12,8 +12,8 @@ using SklepZKoszulkami.Data;
 namespace SklepZKoszulkami.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240111153053_addCartTableToDb")]
-    partial class addCartTableToDb
+    [Migration("20240120110623_addAppUserTable")]
+    partial class addAppUserTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,6 +89,11 @@ namespace SklepZKoszulkami.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -140,6 +145,10 @@ namespace SklepZKoszulkami.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -301,6 +310,10 @@ namespace SklepZKoszulkami.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
@@ -309,9 +322,37 @@ namespace SklepZKoszulkami.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppUserId");
+
                     b.HasIndex("ProductId");
 
                     b.ToTable("ShoppingCarts");
+                });
+
+            modelBuilder.Entity("SklepZKoszulkami.Models.AppUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("KodPocztowy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Miasto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumerMieszkania")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ulica")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Wojewodztwo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("AppUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -367,11 +408,19 @@ namespace SklepZKoszulkami.Migrations
 
             modelBuilder.Entity("SklepZKoszulkami.Models.ShoppingCart", b =>
                 {
+                    b.HasOne("SklepZKoszulkami.Models.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SklepZKoszulkami.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("AppUser");
 
                     b.Navigation("Product");
                 });

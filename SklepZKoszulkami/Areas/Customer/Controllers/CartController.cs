@@ -17,23 +17,9 @@ namespace SklepZKoszulkami.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            //var claimsIdentity = (ClaimsIdentity)User.Identity;
-            //var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            //ShoppingCartVM = new()
-            //{
-            //    ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId,
-            //    includeProperties: "Product"),
-            //    OrderHeader = new()
-            //};
-
-            //foreach (var cart in ShoppingCartVM.ShoppingCartList)
-            //{
-            //    cart.Price = GetPriceBasedOnQuantity(cart);
-            //    ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
-            //}
-
             return View(ShoppingCartVM);
         }
+
+        
     }
 }

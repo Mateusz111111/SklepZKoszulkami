@@ -25,9 +25,9 @@ namespace SklepZKoszulkami.Repository
                 objFromDb.Size = obj.Size;
                 objFromDb.Price = obj.Price;
                 objFromDb.Season = obj.Season;
-                if (objFromDb.ImageUrl != null)
+                if (obj.ImageUrl != null)
                 {
-                    objFromDb.ImageUrl = objFromDb.ImageUrl;
+                    objFromDb.ImageUrl = obj.ImageUrl;
                 }
             }
         }

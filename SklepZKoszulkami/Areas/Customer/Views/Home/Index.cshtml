@@ -26,13 +26,13 @@
                                 </p>
                             </div>
                             <div class="pl-1">
-                                <label for="sizeSelect_@product.Id" class="text-dark text-opacity-75 text-center mb-0">Dostępne rozmiary:</label>
-                                <select id="sizeSelect_@product.Id" name="sizeSelect" class="form-select">
-                                    @foreach (var size in product.Size.Split(','))
-                                    {
-                                        <option value="@size">@size</option>
-                                    }
-                                </select>
+                                <div class="pl-1">
+                                    <p class="text-dark text-opacity-75 text-center">
+                                        Rozmiar:
+                                        <span>
+                                            @product.Size
+                                        </span>
+                                </div>
                             </div>
                             <div class="pl-1">
                                 <p class="text-dark text-opacity-75 text-center">
@@ -45,8 +45,9 @@
                         </div>
 
                         <div class="text-center">
-                            <a asp-controller="Cart" asp-action="Index" asp-route-productId="@product.Id" class="btn btn-outline-dark mt-auto">
-                                Dodaj do koszyka
+                            <a asp-action="Details"
+                               asp-route-productId="@product.Id" class="btn btn-outline-dark mt-auto">
+                                Więcej informacji
                             </a>
                         </div>
                     </div>
